@@ -10,6 +10,8 @@ When contributing to new open-source projects, cloning repos locally and letting
 
 - Absolute Isolation: Any untrusted code execution, rogue `setup.py` scripts, or accidental destructive commands run strictly inside a throwaway Linux container. They cannot access your host OS binaries, system Python, or personal files outside the project.
 
+- 🔒 Optional Offline Mode: Includes a dedicated `saferun-offline` mode (`--network none`) to completely block external network requests, stopping data exfiltration and rogue installation callbacks dead in their tracks.
+
 - Headless Environment: Optimized purely for `CLI development`, web servers, test runners, and AI agents. Graphical UI (GUI) popups are intentionally disabled.
 
 - Zero Permission Headaches: By dynamically passing your user ID to Docker, any files or virtual environments generated inside the sandbox belong to you, not `root`. Your IDE (like `PyCharm`) can save and modify files without "Permission Denied" errors.
