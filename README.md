@@ -58,6 +58,10 @@ CMD ["bash"]
 ```
 Save and exit your editor (in nano, press `Ctrl+O`, `Enter`, then `Ctrl+X`).
 
+> **Tip:** If you ever need a different Python version (e.g., Python 3.11), simply change `FROM python:3.12-slim` in your Dockerfile, save the file, and re-run the build with the clean-cache command:
+> 
+> `docker build --no-cache -t saferun-base ~/.saferun/`
+
 ### Step 2: Build the Local Sandbox Image
 Run the following command to package the `Dockerfile` into a ready-to-use image on your machine. You only ever need to do this once.
 
