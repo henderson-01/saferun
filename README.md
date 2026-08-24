@@ -10,6 +10,8 @@ When contributing to new open-source projects, cloning repos locally and letting
 
 - Absolute Isolation: Any untrusted code execution, rogue `setup.py` scripts, or accidental destructive commands run strictly inside a throwaway Linux container. They cannot access your host OS binaries, system Python, or personal files outside the project.
 
+- Headless Environment: Optimized purely for `CLI development`, web servers, test runners, and AI agents. Graphical UI (GUI) popups are intentionally disabled.
+
 - Zero Permission Headaches: By dynamically passing your user ID to Docker, any files or virtual environments generated inside the sandbox belong to you, not `root`. Your IDE (like `PyCharm`) can save and modify files without "Permission Denied" errors.
 
 - Lightning Fast: Uses a pre-built local image and a dedicated Docker volume for `uv`. Startup takes milliseconds, and package downloads are cached permanently between sessions.
@@ -50,18 +52,20 @@ Paste the following blueprint inside. (Note: We intentionally omit `Git` here be
 
 ```Dockerfile
 FROM python:3.12-slim
- 
-# Install curl (needed to install OpenCode)
+
+# Install curl and essential build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Install uv globally
 RUN pip install --no-cache-dir uv
 
-# Install OpenCode and dynamically find/copy its binary to /usr/local/bin
+# Install OpenCode, copy the binary, and clean up installer leftovers
 RUN curl -fsSL https://opencode.ai/install | bash && \
-    find /root -name "opencode" -type f -exec cp {} /usr/local/bin/ \;
+    find /root -name "opencode" -type f -exec cp {} /usr/local/bin/ \; && \
+    rm -rf /root/.cache /root/.local /tmp/*
 
 # Pre-create paths and fix permissions for dynamic non-root UIDs
 RUN mkdir -p /uv-cache /app-data /tmp/.config && chmod 777 /uv-cache /app-data /tmp/.config
