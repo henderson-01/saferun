@@ -210,9 +210,10 @@ Execution (`saferun-offline`): Spin up your container using the offline alias. A
 
 ---
 
-### How this enhances your project:
-* **Addresses Real-World Threat Modeling:** It shows that you and your users are thinking past mere containment and looking at data exfiltration vectors.
-* **Solves the Catch-22:** By explaining the hybrid workflow (online for `uv` caching, offline for execution), it prevents users from getting confused as to why packages won't install when `--network none` is active.
+## Why Use Offline Mode?
+- Zero Data Exfiltration: Completely blocks malicious scripts, hidden telemetry, or rogue installation callbacks from sending your local data, project files, or environment variables to external servers.
+
+- Smart Hybrid Workflow: Separates the initial package download phase from the execution phase, ensuring you never run into installation errors while keeping your test runs entirely locked down.
 
 ---
 
