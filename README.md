@@ -186,6 +186,34 @@ The execution sandbox vanishes into thin air, leaving your code edits safely sav
 
 ---
 
+## 🔒 Advanced Security: Going Offline (saferun-offline)
+
+As noted by security feedback, the highest risk when running untrusted GitHub repositories isn't usually file system damage—it's **rogue installation scripts or setup callbacks phoning home** to exfiltrate data or download payloads.
+
+To counter this, `saferun` supports a fully offline execution mode.
+
+### How to use it:
+Add a secondary alias to your shell profile (`~/.bashrc` or `~/.zshrc`) alongside your main command:
+
+```Bash
+alias saferun-offline='docker run --rm -it --network none -u "$(id -u):$(id -g)" -e HOME=/tmp -e UV_CACHE_DIR=/uv-cache -e XDG_DATA_HOME=/app-data -v "$(pwd):/app" -v uv-cache:/uv-cache -v ~/.config/opencode:/tmp/.config/opencode -v ~/.local/share/opencode:/app-data/opencode -w /app saferun-base'
+```
+
+---
+
+## The Recommended Hybrid Workflow:
+First Boot (`saferun`): Run your standard container with network access enabled to let uv download dependencies and packages. Then type exit.
+
+Execution (`saferun-offline`): Spin up your container using the offline alias. Any malicious script attempting a network callback, external fetch, or telemetry exfiltration will instantly fail.
+
+---
+
+### How this enhances your project:
+* **Addresses Real-World Threat Modeling:** It shows that you and your users are thinking past mere containment and looking at data exfiltration vectors.
+* **Solves the Catch-22:** By explaining the hybrid workflow (online for `uv` caching, offline for execution), it prevents users from getting confused as to why packages won't install when `--network none` is active.
+
+---
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
