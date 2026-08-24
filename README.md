@@ -1,5 +1,5 @@
 # saferun 🛡️
-A zero-trust, Lightweight disposable `Docker sandbox` designed for **macOS and Linux** systems, for exploring unfamiliar GitHub repositories and running AI coding agents safely.
+A zero-trust, disposable `Docker sandbox` designed for **macOS and Linux** systems, for exploring unfamiliar GitHub repositories and running AI coding agents safely.
 
 ---
 
