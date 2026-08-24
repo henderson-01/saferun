@@ -1,6 +1,8 @@
 # saferun 🛡️
 A zero-trust, Lightweight disposable `Docker sandbox` designed for **macOS and Linux** systems, for exploring unfamiliar GitHub repositories and running AI coding agents safely.
 
+---
+
 ## Why saferun?
 When contributing to new open-source projects, cloning repos locally and letting an AI coding agent (like OpenCode) execute build scripts or test suites can sometimes introduce unexpected risks. A rogue script or accidental command can break your host operating system.
 
@@ -15,6 +17,18 @@ When contributing to new open-source projects, cloning repos locally and letting
 - Persistent AI Context: Safely maps your `OpenCode configuration` (`agents.md` and login sessions) into the container so your AI agent always knows your preferences without polluting your system environment.
 
 - Clean Exit: When you exit, the environment is destroyed instantly, leaving your host system completely clean, while your modified project files remain safely saved locally and ready to push to GitHub.
+
+---
+
+## Prerequisites
+Before setting up `saferun`, it is recommended to install and configure **OpenCode** globally on your host machine first:
+
+1. Install OpenCode on your host system following its standard installation guide.
+2. Run OpenCode once on your machine to complete initial setup and log in.
+
+> **Why?** `saferun` seamlessly mounts your host's OpenCode configuration into the container. Setting it up on your main system first ensures your AI preferences, API keys, and login sessions persist automatically inside the sandbox without asking you to re-authenticate every time.
+
+---
 
 ## Setup Instructions
 Choose the setup instructions below depending on your operating system (Mac defaults to `zsh`, while Ubuntu defaults to `bash`).
@@ -66,12 +80,16 @@ Save and exit your editor (in nano, press `Ctrl+O`, `Enter`, then `Ctrl+X`).
 > 
 > `docker build --no-cache -t saferun-base ~/.saferun/`
 
+---
+
 ### Step 2: Build the Local Sandbox Image
 Run the following command to package the `Dockerfile` into a ready-to-use image on your machine. You only ever need to do this once.
 
 ```Bash
 docker build -t saferun-base ~/.saferun/
 ```
+
+---
 
 ### Step 3: Add the Alias to Your Shell Profile
 Now, tie it all to the simple saferun command. Open your shell's configuration file:
@@ -98,6 +116,7 @@ Scroll to the very bottom of the file and paste this optimized alias:
 ```Bash 
 alias saferun='docker run --rm -it -u "$(id -u):$(id -g)" -e HOME=/tmp -e UV_CACHE_DIR=/uv-cache -e XDG_DATA_HOME=/app-data -v "$(pwd):/app" -v uv-cache:/uv-cache -v ~/.config/opencode:/tmp/.config/opencode -v ~/.local/share/opencode:/app-data/opencode -w /app saferun-base'
 ```
+
 ### What this command actually does:
 
 - `--rm`: Destroys the container instantly when you type exit.
@@ -112,6 +131,8 @@ alias saferun='docker run --rm -it -u "$(id -u):$(id -g)" -e HOME=/tmp -e UV_CAC
 
 Save and exit your editor.
 
+---
+
 ### Step 4: Reload Your Terminal Settings
 Apply the changes immediately by reloading your shell profile:
 
@@ -124,6 +145,8 @@ source ~/.zshrc
 ```Bash
 source ~/.bashrc
 ```
+
+---
 
 ## Daily Workflow
 Now that your system recognizes saferun, your development workflow is effortless and safe:
@@ -156,3 +179,9 @@ exit
 ```
 
 The execution sandbox vanishes into thin air, leaving your code edits safely saved and ready to commit.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
