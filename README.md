@@ -49,6 +49,9 @@ RUN pip install --no-cache-dir uv
 RUN curl -fsSL https://opencode.ai/install | bash && \
     find /root -name "opencode" -type f -exec cp {} /usr/local/bin/ \;
 
+# Pre-create paths and fix permissions for dynamic non-root UIDs
+RUN mkdir -p /uv-cache /app-data /tmp/.config && chmod 777 /uv-cache /app-data /tmp/.config
+
 # Fix the "I have no name!" prompt for dynamic UIDs
 RUN echo 'export PS1="Docker Terminal:\w\$ "' >> /etc/bash.bashrc
 
@@ -72,6 +75,13 @@ docker build -t saferun-base ~/.saferun/
 
 ### Step 3: Add the Alias to Your Shell Profile
 Now, tie it all to the simple saferun command. Open your shell's configuration file:
+
+> [!IMPORTANT]
+> **First-Time Setup Note:** If you have not installed or launched `OpenCode` on your host machine yet, run this command **before** using `saferun`:
+> ```bash
+> mkdir -p ~/.config/opencode ~/.local/share/opencode
+> ```
+> **Why?** If these host directories do not exist when Docker starts, Docker will auto-create them on your machine with `root` ownership. Pre-creating them manually ensures your normal user account owns the folders, preventing permission errors when saving OpenCode settings.
 
 #### For Mac (zsh):
 ```Bash
