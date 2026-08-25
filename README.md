@@ -14,6 +14,11 @@ When contributing to new open-source projects, cloning repos locally and letting
 
 - Headless Environment: Optimized purely for `CLI development`, web servers, test runners, and AI agents. Graphical UI (GUI) popups are intentionally disabled.
 
+  Execution: Run a project headlessly via uv example:
+  `uv run python main.py --headless`
+  
+  Validation: Verification is complete when the command completes with exit code 0, indicating successful execution without unhandled exceptions or visual dependencies.
+
 - Zero Permission Headaches: By dynamically passing your user ID to Docker, any files or virtual environments generated inside the sandbox belong to you, not `root`. Your IDE (like `PyCharm`) can save and modify files without "Permission Denied" errors.
 
 - Lightning Fast: Uses a pre-built local image and a dedicated Docker volume for `uv`. Startup takes milliseconds, and package downloads are cached permanently between sessions.
