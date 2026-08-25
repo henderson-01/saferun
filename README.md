@@ -195,7 +195,7 @@ The execution sandbox vanishes into thin air, leaving your code edits safely sav
 
 ## 🔒 Advanced Security: Going Offline (saferun-offline)
 
-As noted by security feedback, the highest risk when running untrusted GitHub repositories isn't usually file system damage—it's **rogue installation scripts or setup callbacks phoning home** to exfiltrate data or download payloads.
+As noted by a `Dev.to` community member on security feedback, the highest risk when running untrusted GitHub repositories isn't usually file system damage—it's **rogue installation scripts or setup callbacks phoning home** to exfiltrate data or download payloads.
 
 To counter this, `saferun` supports a fully offline execution mode.
 
