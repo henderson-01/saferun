@@ -17,7 +17,7 @@ When contributing to new open-source projects, cloning repos locally and letting
   Execution: Run a project headlessly via uv example:
   `uv run python main.py --headless`
   
-  Validation: Verification is complete when the command completes with exit code 0, indicating successful execution without unhandled exceptions or visual dependencies.
+  Validation: Verification is complete when the command completes with `exit code 0`, indicating successful execution without unhandled exceptions or visual dependencies.
 
 - Zero Permission Headaches: By dynamically passing your user ID to Docker, any files or virtual environments generated inside the sandbox belong to you, not `root`. Your IDE (like `PyCharm`) can save and modify files without "Permission Denied" errors.
 
