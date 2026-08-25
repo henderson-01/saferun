@@ -103,8 +103,6 @@ docker build -t saferun-base ~/.saferun/
 ---
 
 ### Step 3: Add the Alias to Your Shell Profile
-Now, tie it all to the simple saferun command. Open your shell's configuration file:
-
 > [!IMPORTANT]
 > **First-Time Setup Note:** If you have not installed or launched `OpenCode` on your host machine yet, run this command **before** using `saferun`:
 > ```bash
@@ -112,6 +110,7 @@ Now, tie it all to the simple saferun command. Open your shell's configuration f
 > ```
 > **Why?** If these host directories do not exist when Docker starts, Docker will auto-create them on your machine with `root` ownership. Pre-creating them manually ensures your normal user account owns the folders, preventing permission errors when saving OpenCode settings.
 
+Now, tie it all to the simple saferun command. Open your shell's configuration file:
 #### For Mac (zsh):
 ```Bash
 nano ~/.zshrc
